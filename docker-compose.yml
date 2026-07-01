@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:17
+    container_name: loan-manag-db
+    restart: always
+    environment:
+      POSTGRES_USER: barkalovaev
+      POSTGRES_PASSWORD: 13ReasonsWhy
+      POSTGRES_DB: loan-management
+    ports:
+      - "5431:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
