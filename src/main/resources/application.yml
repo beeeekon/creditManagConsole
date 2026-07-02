@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5431/loan-management
+    username: barkalovaev
+    password: 13ReasonsWhy
+
+  liquibase:
+    change-log: db/changelog/main-changelog.yml

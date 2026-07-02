@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: v1-cre-loan
+      author: barkalovaev
+
+      preconditions:
+        - onFail: MARK_RAN # если условие не выполнилось, пропустить изменения и записать лог как выполненный
+        - not:
+            tableExists:
+              tableName: loan
+
+      changes:
+        - createTable:
+            tableName: loan
+            columns:
+            - column:
+                name: id
+                type: bigint
+                autoIncrement: true
+                constraints:
+                  primaryKey: true
+                  primaryKeyName: pk_loan
+            - column:
+                name: client_id
+                type: bigint
+                constraints:
+                  nullable: false
+            - column:
+                name: loan_number
+                type: varchar(50)
+                constraints:
+                  nullable: false
+                  unique: true
+                  uniqueConstraintName: uq_loan_number
+            - column:
+                name: currency
+                type: varchar(5)
+                constraints:
+                  nullable: false
+            - column:
+                name: amount
+                type: numeric(17,2)
+                constraints:
+                  nullable: false
+            - column:
+                name: loan_status
+                type: varchar(10)
+                constraints:
+                  nullable: false
+            - column:
+                name: created_at
+                type: timestamp
+                constraints:
+                  nullable: false
+            - column:
+                name: updated_at
+                type: timestamp
+
+        - addForeignKeyConstraint:
+            baseTableName: loan
+            baseColumnNames: client_id
+            constraintName: fk_loan_client
+            referencedTableName: client
+            referencedColumnNames: id
+            onDelete: RESTRICT # заблокировать клиента для удаления если есть кредит
+
+
+

@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: v1-cre-client
+      author: barkalovaev
+
+      preconditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: client
+
+      changes:
+        - createTable:
+            tableName: client
+            columns:
+               - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_client
+               - column:
+                  name: first_name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+               - column:
+                  name: last_name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+               - column:
+                  name: middle_name
+                  type: varchar(50)
+               - column:
+                  name: birth_day
+                  type: date
+                  constraints:
+                    nullable: false
+               - column:
+                  name: passport_number
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintsName: uq_client_passport
+               - column:
+                  name: email
+                  type: varchar(255) # стандарт длина для email
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintsName: uq_client_email
+               - column:
+                  name: status
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+
+
+
+
