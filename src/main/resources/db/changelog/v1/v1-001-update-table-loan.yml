@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: v1-upd-loan-1783857711
+      author: barkalovaev
+
+      preconditions:
+        - onFail: MARK_RAN # если условие не выполнилось, пропустить изменения и записать лог как выполненный
+        - and:
+            - tableExists:
+                tableName: loan
+            - not:
+                columnExists:
+                  tableName: loan
+                  columnName: term_months
+            - not:
+                columnExists:
+                  tableName: loan
+                  columnName: monthly_payment
+
+      changes:
+        - addColumn:
+            tableName: loan
+            columns:
+              - column:
+                  name: term_months
+                  type: int
+                  constraints:
+                    nullable: false
+                  defaultValue: 0
+              - column:
+                  name: monthly_payment
+                  type: numeric(17,2)
+                  constraints:
+                    nullable: false
+                  defaultValue: 0.00

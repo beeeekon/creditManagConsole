@@ -38,7 +38,8 @@
         <!-- Зависимости -->
         <liquibase.version>4.29.2</liquibase.version>
         <mapstruct.version>1.6.3</mapstruct.version>
-        <lombok.version>1.18.36</lombok.version>
+        <lombok-mapstruct-binding>0.2.0</lombok-mapstruct-binding>
+        <lombok.version>1.18.38</lombok.version>
         <postgresql.version>42.7.5</postgresql.version>
         <spring-dotenv.version>4.0.0</spring-dotenv.version>
 
@@ -146,7 +147,7 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok-mapstruct-binding</artifactId>
-                            <version>0.2.0</version>
+                            <version>${lombok-mapstruct-binding}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
