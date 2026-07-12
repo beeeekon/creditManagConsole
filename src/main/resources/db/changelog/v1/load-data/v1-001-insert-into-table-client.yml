@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: v1-ins-client-1783819901
+      author: barkalovaev
+      changes:
+        - loadUpdateData:
+            tableName: client
+            primaryKey: passport_number  # имеется в виду не первичный ключ БД, а бизнес ключ для сравнения
+            file: db/changelog/data/clients.csv
+            separator: ','
+            encoding: UTF-8
+            header: true

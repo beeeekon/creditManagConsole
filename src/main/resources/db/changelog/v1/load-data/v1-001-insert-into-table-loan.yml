@@ -1,0 +1,72 @@
+databaseChangeLog:
+  # загружаем данные из csv во временную таблицу
+  - changeSet:
+      id: v1-load-staging-to-loan-1783819943
+      author: barkalovaev
+      changes:
+        - loadData:
+            tableName: staging_loan
+            file: db/changelog/data/loans.csv
+            separator: ','
+            encoding: UTF-8
+            header: true
+
+  # переносим из временной таблицы в основную
+  - changeSet:
+      id: v1-ins-loan-from-staging-1783860065
+      author: barkalovaev
+      changes:
+        - sql:
+            comment: "перенос кредитов из staging в основную таблицу с привязкой по паспорту"
+            sql: |
+              INSERT INTO loan (
+                client_id,
+                loan_number,
+                currency,
+                amount,
+                term_months,
+                monthly_payment,
+                loan_status,
+                created_at
+              )
+              SELECT 
+                c.id,
+                /*
+                  при вставке значений с помощью insert автогенерация hibernate в процессе не участвует
+                  в таком случае надо генерировать бизнес ключ так же, как и в java
+                  + это решает проблему, чтобы в таблицу вставлялись только те данные, каких там еще нет
+                */
+                CONCAT('LN-', TO_CHAR(CURRENT_DATE, 'YYYYMMDD'), '-', 
+                        UPPER(LEFT(REPLACE(gen_random_uuid()::TEXT, '-', ''), 10))),
+                s.currency,
+                s.amount,
+                s.term_months,
+                s.monthly_payment,
+                s.loan_status,
+                CURRENT_TIMESTAMP
+              FROM staging_loan s
+              JOIN client c ON c.passport_number = s.passport_number
+              /*
+                можно было бы написать
+                ON CONFLICT (loan_number) DO NOTHING;
+                в таблице loan поле loan_number помечено unique
+                при возникновении конфликта вставки (ON CONFLICT) в поле (loan_number)
+                делать ничего (NOTHING) либо можно еще писать обновить запись (DO UPDATE)
+              
+                ОДНАКО здесь это не сработает, тк каждый раз будет генерироваться новый бизнес ключ
+                поэтому либо ключ должен генерироваться не случайным образом а высчитываться,
+                либо проверяем построчно записи
+              
+                будем проверять построчно, тк если бизнес-ключ высчитывать, то мошенники могут узнать
+                как именно он считается, раскодировать бизнес-ключ и узнать важные данные
+              */
+              WHERE NOT EXISTS (
+                SELECT 1 --значит данные нам не нужны, просто проверяем
+                FROM loan l
+                JOIN client c2 ON c2.id = l.client_id
+                WHERE c2.passport_number = s.passport_number
+                AND l.currency = s.currency
+                AND l.amount = s.amount
+                AND l.term_months = s.term_months
+                AND l.loan_status = s.loan_status
+                );

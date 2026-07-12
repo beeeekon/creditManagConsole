@@ -1,0 +1,13 @@
+first_name,last_name,middle_name,birth_day,passport_number,email,status
+Иван,Петров,Сергеевич,1990-05-15,1234567890,ivan@email.com,ACTIVE
+Мария,Сидорова,Алексеевна,1985-12-03,9876543210,maria@email.com,ACTIVE
+Алексей,Смирнов,Николаевич,1992-08-20,4567891234,alexey@email.com,ACTIVE
+Елена,Козлова,Дмитриевна,1988-03-15,7891234567,elena@email.com,BLOCKED
+Ольга,Иванова,Петровна,1995-11-02,3216549873,olga@email.com,ACTIVE
+Дмитрий,Кузнецов,Андреевич,1983-07-18,6549873210,dmitry@email.com,CLOSED
+Анна,Морозова,Сергеевна,1991-09-25,1472583691,anna@email.com,ACTIVE
+Сергей,Волков,Игоревич,1987-12-10,2583691475,sergey@email.com,BLOCKED
+Наталья,Зайцева,Алексеевна,1993-04-05,3691472582,natalia@email.com,ACTIVE
+Михаил,Соколов,Павлович,1980-06-30,7418529633,mikhail@email.com,CLOSED
+Татьяна,Михайлова,Анатольевна,1996-02-14,8529637414,tatiana@email.com,ACTIVE
+Андрей,Федоров,Владимирович,1984-10-22,9637418525,andrey@email.com,BLOCKED

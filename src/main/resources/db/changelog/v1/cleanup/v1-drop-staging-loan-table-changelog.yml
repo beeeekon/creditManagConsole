@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: v1-drop-staging-loan
+      author: barkalovaev
+      changes:
+        - dropTable:
+            tableName: staging_loan

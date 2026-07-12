@@ -1,9 +1,24 @@
 databaseChangeLog:
+  # создание таблиц
   - include:
-      file: db/changelog/v1/v1-create-client-table-changelog.yml
+      file: db/changelog/v1/create-table/v1-create-client-table-changelog.yml
 
   - include:
-      file: db/changelog/v1/v1-create-loan-table-changelog.yml
+      file: db/changelog/v1/create-table/v1-create-loan-table-changelog.yml
 
   - include:
-      file: db/changelog/v1/v1-001-update-table-loan.yml
+      file: db/changelog/v1/update-table/v1-001-update-table-loan.yml
+
+  - include:
+      file: db/changelog/v1/create-table/v1-create-staging-loan-table-changelog.yml
+
+  # загрузка данных
+  - include:
+      file: db/changelog/v1/load-data/v1-001-insert-into-table-client.yml
+
+  - include:
+      file: db/changelog/v1/load-data/v1-001-insert-into-table-loan.yml
+
+  # удаление таблиц
+  - include:
+      file: db/changelog/v1/cleanup/v1-drop-staging-loan-table-changelog.yml
