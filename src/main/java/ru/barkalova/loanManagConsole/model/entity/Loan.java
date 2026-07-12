@@ -7,6 +7,8 @@ import ru.barkalova.loanManagConsole.model.enums.LoanStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 @Entity
 @Table(name = "loan")
@@ -68,11 +70,21 @@ public class Loan {
     @PrePersist
     protected void onCreate(){
         this.createdAt = LocalDateTime.now();
+        generateLoanNumber();
     }
 
     @PreUpdate
     protected void onUpdate(){
         this.updatedAt = LocalDateTime.now();
+    }
+
+    private void generateLoanNumber(){
+        //формат LN-ГГГГММДД-UUID
+        if (this.loanNumber == null) {
+            String datePart = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+            String uuid = UUID.randomUUID().toString().replace("-", "").substring(0, 10).toUpperCase();
+            this.loanNumber = "LN-" + datePart +"-"+ uuid;
+        }
     }
 
 }
