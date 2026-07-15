@@ -2,6 +2,9 @@ package ru.barkalova.loanManagConsole.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.barkalova.loanManagConsole.model.enums.Currency;
 import ru.barkalova.loanManagConsole.model.enums.LoanStatus;
 
@@ -12,6 +15,9 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "loan")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Loan {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
