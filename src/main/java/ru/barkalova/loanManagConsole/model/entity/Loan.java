@@ -18,7 +18,7 @@ public class Loan {
     private Long id;                                     //id кредита
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)//загружает данные только при явном запросе
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;                               //id клиента внешний ключ
 
@@ -52,6 +52,13 @@ public class Loan {
     @Digits(integer = 15, fraction = 2)
     @Column(name = "monthly_payment", nullable = false, precision = 17, scale = 2)
     private BigDecimal monthlyPayment;                  //ежемесячный платеж
+
+
+    @NotNull
+    @DecimalMin(value = "0.0", message = "Ставка не может быть отрицательной")
+    @DecimalMax(value = "100.0", message = "Ставка не может превышать 100%")
+    @Column(name = "interest_rate", nullable = false, precision = 5, scale = 2)
+    private BigDecimal interestRate;
 
 
     @NotNull

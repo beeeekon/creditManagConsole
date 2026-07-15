@@ -1,7 +1,7 @@
 databaseChangeLog:
   # загружаем данные из csv во временную таблицу
   - changeSet:
-      id: v1-load-staging-to-loan-1783819943
+      id: v1-load-staging-to-loan-1784138035
       author: barkalovaev
       changes:
         - loadData:
@@ -13,7 +13,7 @@ databaseChangeLog:
 
   # переносим из временной таблицы в основную
   - changeSet:
-      id: v1-ins-loan-from-staging-1783860065
+      id: v1-ins-loan-from-staging-1784138045
       author: barkalovaev
       changes:
         - sql:
@@ -26,6 +26,7 @@ databaseChangeLog:
                 amount,
                 term_months,
                 monthly_payment,
+                interest_rate,
                 loan_status,
                 created_at
               )
@@ -42,6 +43,7 @@ databaseChangeLog:
                 s.amount,
                 s.term_months,
                 s.monthly_payment,
+                s.interest_rate,
                 s.loan_status,
                 CURRENT_TIMESTAMP
               FROM staging_loan s
@@ -68,5 +70,6 @@ databaseChangeLog:
                 AND l.currency = s.currency
                 AND l.amount = s.amount
                 AND l.term_months = s.term_months
+                AND l.interest_rate = s.interest_rate
                 AND l.loan_status = s.loan_status
                 );

@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: v1-upd-staging-loan-1784071971
+      author: barkalovaev
+
+      preconditions:
+        - onFail: MARK_RAN # если условие не выполнилось, пропустить изменения и записать лог как выполненный
+        - and:
+            - tableExists:
+                tableName: staging_loan
+            - not:
+                columnExists:
+                  tableName: staging_loan
+                  columnName: interest_rate
+
+
+      changes:
+        - addColumn:
+            tableName: staging_loan
+            columns:
+              - column:
+                  name: interest_rate
+                  type: numeric(5,2)
+                  constraints:
+                    nullable: false
+                  defaultValue: 0.00

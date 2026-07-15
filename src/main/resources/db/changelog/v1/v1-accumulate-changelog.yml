@@ -7,10 +7,18 @@ databaseChangeLog:
       file: db/changelog/v1/create-table/v1-create-loan-table-changelog.yml
 
   - include:
+      file: db/changelog/v1/create-table/v1-create-staging-loan-table-changelog.yml
+
+  - include:
       file: db/changelog/v1/update-table/v1-001-update-table-loan.yml
 
   - include:
-      file: db/changelog/v1/create-table/v1-create-staging-loan-table-changelog.yml
+      file: db/changelog/v1/update-table/v1-002-update-table-loan.yml
+
+
+
+  - include:
+      file: db/changelog/v1/update-table/v1-001-update-table-staging-loan.yml
 
   # загрузка данных
   - include:
