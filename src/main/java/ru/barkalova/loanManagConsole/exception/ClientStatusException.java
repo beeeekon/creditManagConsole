@@ -5,4 +5,8 @@ public class ClientStatusException extends RuntimeException {
 
         super("Операция отклонена, статус клиента: " + clientStatus);
     }
+
+    public ClientStatusException(String message, String clientStatus){
+        super(message + clientStatus);
+    }
 }

@@ -5,4 +5,7 @@ public class LoanStatusException extends RuntimeException {
 
         super("Операция отклонена, статус кредита: " + loanStatus);
     }
+    public LoanStatusException(String message, String loanStatus){
+        super(message+loanStatus);
+    }
 }
