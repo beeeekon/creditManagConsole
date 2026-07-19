@@ -43,6 +43,7 @@
         <lombok.version>1.18.38</lombok.version>
         <postgresql.version>42.7.5</postgresql.version>
         <spring-dotenv.version>4.0.0</spring-dotenv.version>
+        <springdoc-openapi-starter-webmvc-ui.version>2.7.0</springdoc-openapi-starter-webmvc-ui.version>
 
         <!-- Плагины -->
         <liquibase-maven-plugin.version>4.29.2</liquibase-maven-plugin.version>
@@ -112,6 +113,14 @@
             <groupId>me.paulschwarz</groupId>
             <artifactId>spring-dotenv</artifactId>
             <version>${spring-dotenv.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Swagger и OpenApi класс-->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc-openapi-starter-webmvc-ui.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

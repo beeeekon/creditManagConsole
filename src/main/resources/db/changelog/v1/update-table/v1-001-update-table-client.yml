@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: v1-upd-client-1784249526
+      author: barkalovaev
+      changes:
+        - renameColumn:
+            tableName: client
+            oldColumnName: birth_day
+            newColumnName: birth_date
+            columnDataType: date
